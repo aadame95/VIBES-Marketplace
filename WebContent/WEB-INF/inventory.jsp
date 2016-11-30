@@ -13,7 +13,6 @@
 </head>
 <body>
 <div class="container">
-
 	<div class="page-header">
 	  <h1>VIBES Marketplace <small>CS3220</small></h1>
 	</div>
@@ -48,9 +47,7 @@
 		    		 <td><a href = "remove?id=${item.id}">Remove</a>
   			</tr>
 		</c:forEach>
-</table>
-	
-	
+	</table>
 </div>
 </body>
 </html>
