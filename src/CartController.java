@@ -30,6 +30,7 @@ public class CartController extends HttpServlet {
 		// request.getSession().getAttribute("cart");
 		List<Items> cart = new ArrayList<Items>();
 		int id = Integer.parseInt(request.getParameter("id"));
+		int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
 		Items item = new Items();
 		Connection d = null;
 		try {
@@ -38,17 +39,23 @@ public class CartController extends HttpServlet {
 			String password = "#D.8SnJ6";
 
 			d = DriverManager.getConnection(url, username, password);
-			
+
 			String sql = "select * from Items where id = ?";
-			
+
 			PreparedStatement pstmt = d.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				item = new Items( rs.getInt( "id" ), rs.getString( "name" ), 
-            			rs.getString( "details" ), rs.getInt("quantity"), rs.getDouble("price") );
+			while (rs.next()) {
+				item = new Items(rs.getInt("id"), rs.getString("name"), rs.getString("details"), cartQuantity,
+						rs.getDouble("price"));
 				cart.add(item);
-			}	
+			}
+			sql = "update Items set quantity = quantity - ? where id = ?";
+
+			pstmt = d.prepareStatement(sql);
+			pstmt.setInt(1, cartQuantity);
+			pstmt.setInt(2, id);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		} finally {
