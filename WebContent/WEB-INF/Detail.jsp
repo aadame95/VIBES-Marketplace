@@ -33,9 +33,13 @@
 				<td>${detail.details}</td>
 				<td>${detail.quantity}</td>
 				<td>${detail.price}</td>
-				<td>Add to Cart Button - TDA</td>
+				<td><c:url value="CartController" var="cartURL">
+					<c:param name="id" value="${detail.id}" />
+				</c:url>
+				<a class="btn btn-primary btn-xs" href="${cartURL}">Add to Cart</a></td>
 			</tr>
 		</table>
 	</div>
+	Return to Store Page Button/Link - TDA
 </body>
 </html>
