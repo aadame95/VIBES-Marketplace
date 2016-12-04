@@ -24,21 +24,35 @@
 			<tr>
 				<th>Name</th>
 				<th>Details</th>
-				<th>Quantity</th>
+				<th>Quantity in Store</th>
 				<th>Price</th>
-				<th>Action</th>
 			</tr>
 			<tr>
 				<td>${detail.name}</td>
 				<td>${detail.details}</td>
 				<td>${detail.quantity}</td>
 				<td>${detail.price}</td>
-				<td><c:url value="CartController" var="cartURL">
-					<c:param name="id" value="${detail.id}" />
-				</c:url>
-				<a class="btn btn-primary btn-xs" href="${cartURL}">Add to Cart</a></td>
 			</tr>
 		</table>
+		<form action="CartController" method="get">
+			<div class="row">
+				<div class="col-xs-9 col-sm-10">
+					<div class="form-group">
+						<label class="sr-only" for="cartQuantity">Quantity to Add
+							in Cart</label> <input type="text" class="form-control" id="cartQuantity"
+							name="cartQuantity" placeholder="Enter Number to Add in Cart">
+						<input type="hidden" class="form-control" id="id"
+							name="id" value ="${detail.id}">
+					</div>
+					<c:if test="${not empty error}">
+						<p class="well-sm bg-danger">${error}</p>
+					</c:if>
+				</div>
+				<div class="col-xs-3 col-sm-2">
+					<button type="submit" class="btn btn-success btn-block">Add to Cart</button>
+				</div>
+			</div>
+		</form>
 	</div>
 	Return to Store Page Button/Link - TDA
 </body>
