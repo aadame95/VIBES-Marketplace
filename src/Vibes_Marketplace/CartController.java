@@ -3,7 +3,6 @@ package Vibes_Marketplace;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +22,12 @@ public class CartController extends HttpServlet {
 		//ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
 		List<Items> cart = new ArrayList<Items>();
 		cart = testCart();
+		double sum = 0;
+		for(Items item : cart){
+			sum+=item.price;
+		}
 		request.setAttribute("cart", cart);
+		request.setAttribute("totalPrice", sum);
 		request.getRequestDispatcher( "/WEB-INF/ShoppingCart.jsp" ).forward(request, response );
 	}
 
