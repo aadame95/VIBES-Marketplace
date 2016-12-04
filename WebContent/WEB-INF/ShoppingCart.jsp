@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Item Detail</title>
+<title>VIBES Marketplace</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -14,32 +14,36 @@
 </head>
 <body>
 	<div class="container">
-
 		<div class="page-header">
 			<h1>
-				VIBES Marketplace <small>CS3220</small>
+				Shopping Cart <small>CS3220</small>
 			</h1>
 		</div>
+
+
 		<table class="table table-bordered table-striped table-hover">
 			<tr>
+				<th>Quantity</th>
 				<th>Name</th>
 				<th>Details</th>
-				<th>Quantity</th>
 				<th>Price</th>
 				<th>Action</th>
 			</tr>
+			<c:forEach items="${cart}" var="item">
+				<tr>
+					<td>${item.quantity}</td>
+					<td>${item.name}</td>
+					<td>${item.details}</td>
+					<td>${item.price}</td>
+					<td><a href="remove?id=${item.id}">Remove</a>
+				</tr>
+			</c:forEach>
 			<tr>
-				<td>${detail.name}</td>
-				<td>${detail.details}</td>
-				<td>${detail.quantity}</td>
-				<td>${detail.price}</td>
-				<td><c:url value="CartController" var="cartURL">
-					<c:param name="id" value="${detail.id}" />
-				</c:url>
-				<a class="btn btn-primary btn-xs" href="${cartURL}">Add to Cart</a></td>
+				<td>Total Price:</td>
+				<td></td>
 			</tr>
 		</table>
+		<a class='btn' href="Checkout">Checkout</a>
 	</div>
-	Return to Store Page Button/Link - TDA
 </body>
 </html>

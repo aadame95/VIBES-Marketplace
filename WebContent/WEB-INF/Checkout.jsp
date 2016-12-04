@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Item Detail</title>
+<title>VIBES Marketplace</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -14,32 +14,45 @@
 </head>
 <body>
 	<div class="container">
-
 		<div class="page-header">
 			<h1>
-				VIBES Marketplace <small>CS3220</small>
+				Checkout <small>CS3220</small>
 			</h1>
 		</div>
+
+		<form action="Checkout" method="post">
+			<table>
+				<tr>
+					<td><input type='text' name='FirstName'
+						placeholder='First Name'></td>
+					<td><input type='text' name='LastName' placeholder='Last Name'></td>
+					<td><input type='text' name='Email' placeholder='Email'></td>
+					<td><input type='submit'></td>
+				</tr>
+			</table>
+		</form>
+		<p>${errorMsg}</p>
+
+
+
 		<table class="table table-bordered table-striped table-hover">
 			<tr>
+				<th>Quantity</th>
 				<th>Name</th>
 				<th>Details</th>
-				<th>Quantity</th>
 				<th>Price</th>
-				<th>Action</th>
 			</tr>
-			<tr>
-				<td>${detail.name}</td>
-				<td>${detail.details}</td>
-				<td>${detail.quantity}</td>
-				<td>${detail.price}</td>
-				<td><c:url value="CartController" var="cartURL">
-					<c:param name="id" value="${detail.id}" />
-				</c:url>
-				<a class="btn btn-primary btn-xs" href="${cartURL}">Add to Cart</a></td>
-			</tr>
+			<c:forEach items="${cart}" var="item">
+				<tr>
+					<td>${item.quantity}</td>
+					<td>${item.name}</td>
+					<td>${item.details}</td>
+					<td>${item.price}</td>
+
+				</tr>
+			</c:forEach>
 		</table>
+
 	</div>
-	Return to Store Page Button/Link - TDA
 </body>
 </html>
