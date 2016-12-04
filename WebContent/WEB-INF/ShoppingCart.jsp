@@ -32,8 +32,9 @@
   			</tr>
 		</c:forEach>
 			<tr>
-				<td>Total Price:</td>
-				<td></td>
+				<td colspan='2'></td>
+				<td>Total:</td>
+				<td>${totalPrice}</td>
 			</tr>
 	</table>
 	<a class='btn' href="Checkout">Checkout</a>
