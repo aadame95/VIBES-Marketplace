@@ -32,7 +32,7 @@ public class itemDetails extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Items detailItem = new Items();
+		Items detailItem = null;
 		Connection d = null;
 		try {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3220stu54";
