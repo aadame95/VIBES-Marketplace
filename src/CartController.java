@@ -6,7 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,25 +15,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class itemDetails
- */
-@WebServlet("/Details")
-public class itemDetails extends HttpServlet {
+@WebServlet("/CartController")
+public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public itemDetails() {
+	public CartController() {
 		super();
 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// ShoppingCart cart = (ShoppingCart)
+		// request.getSession().getAttribute("cart");
+		List<Items> cart = new ArrayList<Items>();
 		int id = Integer.parseInt(request.getParameter("id"));
-		Items detailItem = null;
+		Items item = new Items();
 		Connection d = null;
 		try {
 			String url = "jdbc:mysql://cs3.calstatela.edu/cs3220stu54";
@@ -47,8 +45,9 @@ public class itemDetails extends HttpServlet {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
-				detailItem = new Items( rs.getInt( "id" ), rs.getString( "name" ), 
+				item = new Items( rs.getInt( "id" ), rs.getString( "name" ), 
             			rs.getString( "details" ), rs.getInt("quantity"), rs.getDouble("price") );
+				cart.add(item);
 			}	
 		} catch (SQLException e) {
 			throw new ServletException(e);
@@ -60,13 +59,14 @@ public class itemDetails extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		request.setAttribute("detail", detailItem);
-		request.getRequestDispatcher("/WEB-INF/Detail.jsp" ).forward(request, response );
+		request.setAttribute("cart", cart);
+		request.getRequestDispatcher("/WEB-INF/ShoppingCart.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		doGet(request, response);
 	}
 
 }
